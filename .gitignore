@@ -1,0 +1,9 @@
+.DS_Store
+.env
+recordings/
+
+# Logs
+*.log
+
+# OS
+Thumbs.db

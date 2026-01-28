@@ -1,0 +1,166 @@
+x-recorder-template: &recorder
+  image: jrottenberg/ffmpeg:6.1-ubuntu
+  restart: always
+  environment:
+    - TZ=${TZ}
+    - RTSP_TRANSPORT=tcp
+  networks:
+    - cctv
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+
+services:
+  cam1_recorder:
+    <<: *recorder
+    container_name: cctv_cam1
+    volumes:
+      - ${CAM1_RECORDINGS_DIR}:/recordings
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      -hide_banner -loglevel warning
+      -rtsp_transport tcp
+      -timeout ${RTSP_TIMEOUT_US:-2000000}
+      -i ${CAM1_URL}
+      -fflags +genpts+discardcorrupt
+      -c:v libx264
+      -preset veryfast
+      -crf 23
+      -an
+      -map 0
+      -f segment
+      -segment_format mp4
+      -segment_format_options movflags=+faststart
+      -segment_time ${SEGMENT_TIME_S:-1800}
+      -segment_atclocktime 1
+      -reset_timestamps 1
+      -strftime 1
+      /recordings/${CAM1_NAME}_%Y-%m-%d_%H-%M-%S.mp4
+
+  cam2_recorder:
+    <<: *recorder
+    container_name: cctv_cam2
+    volumes:
+      - ${CAM2_RECORDINGS_DIR}:/recordings
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      -hide_banner -loglevel warning
+      -rtsp_transport tcp
+      -timeout ${RTSP_TIMEOUT_US:-2000000}
+      -i ${CAM2_URL}
+      -fflags +genpts+discardcorrupt
+      -c:v libx264
+      -preset veryfast
+      -crf 23
+      -an
+      -map 0
+      -f segment
+      -segment_format mp4
+      -segment_format_options movflags=+faststart
+      -segment_time ${SEGMENT_TIME_S:-1800}
+      -segment_atclocktime 1
+      -reset_timestamps 1
+      -strftime 1
+      /recordings/${CAM2_NAME}_%Y-%m-%d_%H-%M-%S.mp4
+
+  cam3_recorder:
+    <<: *recorder
+    container_name: cctv_cam3
+    volumes:
+      - ${CAM3_RECORDINGS_DIR}:/recordings
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      -hide_banner -loglevel warning
+      -rtsp_transport tcp
+      -timeout ${RTSP_TIMEOUT_US:-2000000}
+      -i ${CAM3_URL}
+      -fflags +genpts+discardcorrupt
+      -c:v libx264
+      -preset veryfast
+      -crf 23
+      -an
+      -map 0
+      -f segment
+      -segment_format mp4
+      -segment_format_options movflags=+faststart
+      -segment_time ${SEGMENT_TIME_S:-1800}
+      -segment_atclocktime 1
+      -reset_timestamps 1
+      -strftime 1
+      /recordings/${CAM3_NAME}_%Y-%m-%d_%H-%M-%S.mp4
+
+  cam4_recorder:
+    <<: *recorder
+    container_name: cctv_cam4
+    volumes:
+      - ${CAM4_RECORDINGS_DIR}:/recordings
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      -hide_banner -loglevel warning
+      -rtsp_transport tcp
+      -timeout ${RTSP_TIMEOUT_US:-2000000}
+      -i ${CAM4_URL}
+      -fflags +genpts+discardcorrupt
+      -c:v libx264
+      -preset veryfast
+      -crf 23
+      -an
+      -map 0
+      -f segment
+      -segment_format mp4
+      -segment_format_options movflags=+faststart
+      -segment_time ${SEGMENT_TIME_S:-1800}
+      -segment_atclocktime 1
+      -reset_timestamps 1
+      -strftime 1
+      /recordings/${CAM4_NAME}_%Y-%m-%d_%H-%M-%S.mp4
+
+  media:
+    image: alexxit/go2rtc:latest
+    container_name: go2rtc
+    restart: always
+    environment:
+      - TZ=${TZ}
+      - CAM1_URL=${CAM1_URL}
+      - CAM2_URL=${CAM2_URL}
+      - CAM3_URL=${CAM3_URL}
+      - CAM4_URL=${CAM4_URL}
+    networks:
+      - cctv
+    expose:
+      - "1984"
+    volumes:
+      - ./go2rtc.yaml:/config/go2rtc.yaml:ro
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - cctv
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ${RECORDINGS_ROOT}:/recordings:ro
+
+  app:
+    build:
+      context: ./app
+    container_name: cctv_app
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - RECORDINGS_ROOT=/recordings
+      - PUBLIC_GO2RTC_HTTP=${GO2RTC_HTTP}
+      - PUBLIC_CAMERA_COUNT=${CAMERA_COUNT}
+      - AUTH_USER=${AUTH_USER}
+      - AUTH_PASS_HASH=${AUTH_PASS_HASH}
+    networks:
+      - cctv
+    volumes:
+      - ${RECORDINGS_ROOT}:/recordings:ro
+
+networks:
+  cctv:

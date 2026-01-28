@@ -1,0 +1,5 @@
+streams:
+  cam1: ${CAM1_URL}
+  cam2: ${CAM2_URL}
+  cam3: ${CAM3_URL}
+  cam4: ${CAM4_URL}
