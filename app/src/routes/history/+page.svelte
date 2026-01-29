@@ -53,13 +53,15 @@
 <section class="space-y-4">
 	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 		<RecordSearch bind:value={query} />
-		<div class="flex items-center gap-2 text-xs text-slate-500">
-			<span class="rounded-full bg-slate-800 px-3 py-1">{filtered.length} items</span>
-			<div class="flex items-center rounded-full border border-slate-800 bg-slate-900/60 p-1">
+		<div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
+			<span class="rounded-full bg-slate-200 dark:bg-slate-800 px-3 py-1 text-slate-900 dark:text-slate-100 transition-colors">{filtered.length} items</span>
+			<div class="flex items-center rounded-full border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/60 p-1 transition-colors">
 				<button
 					type="button"
-					class={`rounded-full px-3 py-1 text-xs ${
-						view === 'list' ? 'bg-slate-800 text-slate-100' : 'text-slate-400'
+					class={`rounded-full px-3 py-1 text-xs transition-colors ${
+						view === 'list'
+							? 'bg-slate-300 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
+							: 'text-slate-600 dark:text-slate-400'
 					}`}
 					onclick={() => (view = 'list')}
 				>
@@ -67,8 +69,10 @@
 				</button>
 				<button
 					type="button"
-					class={`rounded-full px-3 py-1 text-xs ${
-						view === 'grid' ? 'bg-slate-800 text-slate-100' : 'text-slate-400'
+					class={`rounded-full px-3 py-1 text-xs transition-colors ${
+						view === 'grid'
+							? 'bg-slate-300 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
+							: 'text-slate-600 dark:text-slate-400'
 					}`}
 					onclick={() => (view = 'grid')}
 				>
@@ -80,8 +84,8 @@
 
 	<div class={view === 'grid' ? 'grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5' : 'grid gap-4'}>
 		{#if filtered.length === 0}
-			<div class="rounded-2xl border border-dashed border-slate-800 bg-slate-950/60 p-8 text-center">
-				<p class="text-sm text-slate-400">No recordings found !</p>
+			<div class="rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950/60 p-8 text-center transition-colors">
+				<p class="text-sm text-slate-600 dark:text-slate-400">No recordings found !</p>
 			</div>
 		{:else}
 			{#each filtered as item}
@@ -90,6 +94,7 @@
 					date={item.date}
 					duration={item.duration}
 					size={item.size}
+					tags={item.tags}
 					view={view}
 					onPlay={() => openPlayer(item)}
 				/>

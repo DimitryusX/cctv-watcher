@@ -16,8 +16,8 @@
 
 <section id="live" class="space-y-4">
 	<div class="flex items-center justify-between">
-		<h3 class="text-xl font-semibold">Live video</h3>
-		<span class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">Live</span>
+		<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Live video</h3>
+		<span class="rounded-full bg-emerald-100 dark:bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300 transition-colors">Live</span>
 	</div>
 	<div class="grid gap-4 sm:grid-cols-2">
 		{#each liveCameras as camera}

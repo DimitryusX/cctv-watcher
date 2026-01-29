@@ -3,4 +3,5 @@ export type Recording = {
 	date: string;
 	duration: string;
 	size: string;
+	tags: string[];
 };

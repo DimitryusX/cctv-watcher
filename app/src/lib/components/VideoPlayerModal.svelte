@@ -63,14 +63,14 @@
 </script>
 
 {#if open}
-	<div class="fixed inset-0 z-50 bg-slate-950/70" role="dialog" aria-modal="true">
+	<div class="fixed inset-0 z-50 bg-slate-950/70 dark:bg-slate-950/70 transition-colors" role="dialog" aria-modal="true">
 		{#if isMobile}
-			<div class="fixed inset-0 flex flex-col bg-slate-950">
-				<header class="flex items-center justify-between border-b border-slate-800 px-4 py-3">
-					<h2 class="text-sm font-semibold text-slate-100">{title}</h2>
+			<div class="fixed inset-0 flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors">
+				<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-4 py-3 transition-colors">
+					<h2 class="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
 					<button
 						type="button"
-						class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200"
+						class="rounded-full border border-slate-300 dark:border-slate-700 px-3 py-1 text-xs text-slate-700 dark:text-slate-200 transition-colors"
 						onpointerdown={(event) => event.stopPropagation()}
 						onclick={(event) => {
 							event.stopPropagation();
@@ -86,8 +86,8 @@
 							<track kind="captions" />
 						</video>
 					{:else}
-						<div class="grid h-full place-items-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/60">
-							<p class="text-sm text-slate-400">Video source not set</p>
+						<div class="grid h-full place-items-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/60 transition-colors">
+							<p class="text-sm text-slate-600 dark:text-slate-400">Video source not set</p>
 						</div>
 					{/if}
 				</div>
@@ -95,11 +95,11 @@
 		{:else}
 			<div
 				bind:this={container}
-				class="absolute rounded-2xl border border-slate-700 bg-slate-900/95 shadow-2xl"
+				class="absolute rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/95 shadow-2xl transition-colors"
 				style={`left:${pos.x}px; top:${pos.y}px; width:${size.w}px; height:${size.h}px;`}
 			>
 				<header
-					class="flex cursor-move items-center justify-between border-b border-slate-800 px-4 py-2"
+					class="flex cursor-move items-center justify-between border-b border-slate-200 dark:border-slate-800 px-4 py-2 transition-colors"
 					role="button"
 					tabindex="0"
 					onpointerdown={startDrag}
@@ -107,10 +107,10 @@
 					onpointerup={endDrag}
 					onpointercancel={endDrag}
 				>
-					<h2 class="text-sm font-semibold text-slate-100">{title}</h2>
+					<h2 class="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
 					<button
 						type="button"
-						class="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200"
+						class="rounded-full border border-slate-300 dark:border-slate-700 px-3 py-1 text-xs text-slate-700 dark:text-slate-200 transition-colors"
 						onclick={() => (open = false)}
 					>
 						Close
@@ -122,13 +122,13 @@
 							<track kind="captions" />
 						</video>
 					{:else}
-						<div class="grid h-full place-items-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/60">
-							<p class="text-sm text-slate-400">Video source not set</p>
+						<div class="grid h-full place-items-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/60 transition-colors">
+							<p class="text-sm text-slate-600 dark:text-slate-400">Video source not set</p>
 						</div>
 					{/if}
 				</div>
 				<div
-					class="absolute bottom-2 right-2 h-4 w-4 cursor-nwse-resize rounded border border-slate-600 bg-slate-800"
+					class="absolute bottom-2 right-2 h-4 w-4 cursor-nwse-resize rounded border border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-800 transition-colors"
 					role="button"
 					tabindex="0"
 					onpointerdown={startResize}

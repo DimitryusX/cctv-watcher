@@ -29,11 +29,14 @@ export const getRecordings = async (root: string) => {
 			}
 			if (!entry.isFile()) continue;
 			const stats = await fs.stat(entryPath);
+			const relativePath = path.relative(root, entryPath);
+			const pathSegments = relativePath.split(path.sep).slice(0, -1);
 			recordings.push({
-				name: path.relative(root, entryPath),
+				name: relativePath,
 				date: formatDate(stats.mtime),
 				size: formatBytes(stats.size),
-				duration: '-'
+				duration: '-',
+				tags: pathSegments
 			});
 		}
 	};
