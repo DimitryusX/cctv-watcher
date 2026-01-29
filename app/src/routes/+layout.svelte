@@ -2,9 +2,12 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { theme, type Theme } from '$lib/stores/theme';
+	import type { SystemStats } from '$lib/types/stats';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
 	let currentTheme = $state<Theme>('system');
+	let stats = $state<SystemStats | null>(null);
 
 	$effect(() => {
 		const unsub = theme.subscribe((value) => {
@@ -22,6 +25,23 @@
 		if (currentTheme === 'dark') return '🌙';
 		return '🖥️';
 	};
+
+	const fetchStats = async () => {
+		try {
+			const response = await fetch('/api/stats');
+			if (response.ok) {
+				stats = await response.json();
+			}
+		} catch (e) {
+			console.error('Failed to fetch stats:', e);
+		}
+	};
+
+	onMount(() => {
+		fetchStats();
+		const interval = setInterval(fetchStats, 5000);
+		return () => clearInterval(interval);
+	});
 </script>
 
 <svelte:head>
@@ -68,7 +88,18 @@
 
 	<footer class="border-t border-slate-300 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-950/80 transition-colors duration-200">
 		<div class="mx-auto w-full max-w-6xl px-4 py-4 text-xs text-slate-600 dark:text-slate-500 sm:px-6">
-			No authentication enabled • Internal use only
+			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+				{#if stats}
+					<div class="flex gap-4 text-slate-600 dark:text-slate-500">
+						<span title="CPU Load">
+							🔧 {stats.cpu.percent}% / {stats.cpu.count} cores
+						</span>
+						<span title="Memory Usage">
+							💾 {stats.memory.usedGB}GB / {stats.memory.totalGB}GB ({stats.memory.percent}%)
+						</span>
+					</div>
+				{/if}
+			</div>
 		</div>
 	</footer>
 </div>
