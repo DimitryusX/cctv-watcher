@@ -29,7 +29,7 @@
 	<title>CCTV Watcher</title>
 </svelte:head>
 
-<div class="min-h-dvh bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200">
+<div class="flex min-h-dvh flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200">
 	<header class="border-b border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-950/80 backdrop-blur transition-colors duration-200">
 		<div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
 			<div class="flex items-center gap-3">
@@ -62,7 +62,7 @@
 		</div>
 	</header>
 
-	<main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
+	<main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
 		{@render children()}
 	</main>
 
