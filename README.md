@@ -5,12 +5,12 @@ A lightweight web dashboard for CCTV: live camera streams, an archive of recordi
 ## Screenshots
 
 ### Live (Dark / Light)
-<a href="docs/live-dark.png"><img src="docs/live-dark.png" alt="Live (dark)" style="max-height: 200px; height: auto;" /></a>
-<a href="docs/live-light.png"><img src="docs/live-light.png" alt="Live (light)" style="max-height: 200px; height: auto;" /></a>
+<a href="docs/live-dark.png"><img src="docs/live-dark.png" alt="Live (dark)" width="200" /></a>
+<a href="docs/live-light.png"><img src="docs/live-light.png" alt="Live (light)" width="200" /></a>
 
 ### History (Dark / Light)
-<a href="docs/history-dark.png"><img src="docs/history-dark.png" alt="History (dark)" style="max-height: 200px; height: auto;" /></a>
-<a href="docs/history-light.png"><img src="docs/history-light.png" alt="History (light)" style="max-height: 200px; height: auto;" /></a>
+<a href="docs/history-dark.png"><img src="docs/history-dark.png" alt="History (dark)" width="200" /></a>
+<a href="docs/history-light.png"><img src="docs/history-light.png" alt="History (light)" width="200" /></a>
 
 # CCTV Server
 
