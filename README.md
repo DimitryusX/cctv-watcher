@@ -1,3 +1,17 @@
+# CCTV Watcher
+
+A lightweight web dashboard for CCTV: live camera streams, an archive of recordings grouped by date, quick search, and real-time CPU/RAM stats in the footer. Designed for simple server deployments with Docker.
+
+## Screenshots
+
+### Live (Dark / Light)
+<a href="docs/live-dark.png"><img src="docs/live-dark.png" alt="Live (dark)" style="max-height: 200px; height: auto;" /></a>
+<a href="docs/live-light.png"><img src="docs/live-light.png" alt="Live (light)" style="max-height: 200px; height: auto;" /></a>
+
+### History (Dark / Light)
+<a href="docs/history-dark.png"><img src="docs/history-dark.png" alt="History (dark)" style="max-height: 200px; height: auto;" /></a>
+<a href="docs/history-light.png"><img src="docs/history-light.png" alt="History (light)" style="max-height: 200px; height: auto;" /></a>
+
 # CCTV Server
 
 Ready RTSP recording and playback stack with a web UI.
