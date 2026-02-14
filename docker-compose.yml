@@ -157,6 +157,7 @@ services:
       - PUBLIC_CAMERA_COUNT=${CAMERA_COUNT}
       - AUTH_USER=${AUTH_USER}
       - AUTH_PASS_HASH=${AUTH_PASS_HASH}
+      - DISK_PATH=${DISK_PATH}
     networks:
       - cctv
     volumes:
