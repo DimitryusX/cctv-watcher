@@ -13,4 +13,13 @@ export interface SystemStats {
 		usedGB: string;
 		totalGB: string;
 	};
+	disk: {
+		path: string;
+		total: number;
+		used: number;
+		free: number;
+		percent: number;
+		usedGB: string;
+		totalGB: string;
+	};
 }

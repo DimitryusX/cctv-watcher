@@ -97,6 +97,9 @@
 						<span title="Memory Usage">
 							💾 {stats.memory.usedGB}GB / {stats.memory.totalGB}GB ({stats.memory.percent}%)
 						</span>
+						<span title={`Disk Usage: ${stats.disk.path}`}>
+							🗄️ {stats.disk.usedGB}GB / {stats.disk.totalGB}GB ({stats.disk.percent}%)
+						</span>
 					</div>
 				{/if}
 			</div>

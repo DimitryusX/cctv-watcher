@@ -30,6 +30,7 @@ Ready RTSP recording and playback stack with a web UI.
 
 2) App container env:
 - `RECORDINGS_ROOT` (host path where recordings are stored)
+- `DISK_PATH` (mount path to report disk usage, e.g. `/recordings` or `/`)
 
 ## Routes
 - `http://WEB_HOST/` — live
